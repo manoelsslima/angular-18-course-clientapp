@@ -1,0 +1,9 @@
+<ol>
+  <li *ngFor="let usuario of userList; let userIndex = index">
+    <app-user-single
+      [user]="usuario"
+      [userIndex] = "userIndex"
+      (deleteUser)="removeUser($event)"></app-user-single>
+  </li>
+</ol>
+
