@@ -1,5 +1,5 @@
 <ol>
-  <li *ngFor="let usuario of userList; let userIndex = index">
+  <li *ngFor="let usuario of userService.userList; let userIndex = index">
     <app-user-single
       [user]="usuario"
       [userIndex] = "userIndex"
