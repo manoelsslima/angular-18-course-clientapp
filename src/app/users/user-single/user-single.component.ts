@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from '../../services/user-service.service';
 
 @Component({
@@ -6,13 +6,16 @@ import { UserService } from '../../services/user-service.service';
   templateUrl: './user-single.component.html',
   styleUrl: './user-single.component.css',
 })
-export class UserSingleComponent {
+export class UserSingleComponent implements OnInit {
     // @Input() user: string = "";
     @Input()
     userIndex: number = -1;
 
     editMode: boolean = false;
     userForEdit: string = "";
+    textColor: any = {
+        color: "white"
+    }
 
     // um output é exposto como um evento e será acessado por (deleteUser)=METODO_XPTO_DO_COMPONENTE_PAI($event)
     // esse $event é o evento que é emitido pelo métood emit()
@@ -23,6 +26,14 @@ export class UserSingleComponent {
     constructor(
       public userService: UserService
     ) {}
+
+    ngOnInit(): void {
+        this.userService.colorHasChanged.subscribe(
+            () => {
+              this.textColor.color = "purple"
+            }
+        )
+    }
 
     toggleEdit(editMode: boolean, user: string = "") {
       this.editMode = editMode;

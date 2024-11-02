@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 // estamos dizendo que essa classe poderá ser importada em outros arquivos
 export class UserService {
+
+  colorHasChanged: Subject<void> = new Subject<void>();
 
   editingUser: string = "";
   editingUserIndex: number = -1;
