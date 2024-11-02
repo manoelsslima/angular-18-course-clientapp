@@ -15,8 +15,10 @@ export class AppComponent {
     public userService: UserService
   ) {}
 
+  textColorForChange: string = "purple";
+
   triggerColorChange() {
-    this.userService.colorHasChanged.next(); // dispara o evento do subscribe
+    this.userService.colorHasChanged.next(this.textColorForChange); // dispara o evento do subscribe
   }
 
     incrementClicked() {

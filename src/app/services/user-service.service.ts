@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 // estamos dizendo que essa classe poderá ser importada em outros arquivos
 export class UserService {
 
-  colorHasChanged: Subject<void> = new Subject<void>();
+  colorHasChanged: Subject<string> = new Subject<string>();
 
   editingUser: string = "";
   editingUserIndex: number = -1;

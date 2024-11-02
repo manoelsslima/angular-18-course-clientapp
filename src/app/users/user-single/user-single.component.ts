@@ -29,8 +29,8 @@ export class UserSingleComponent implements OnInit {
 
     ngOnInit(): void {
         this.userService.colorHasChanged.subscribe(
-            () => {
-              this.textColor.color = "purple"
+            (newColor) => {
+              this.textColor.color = newColor
             }
         )
     }
