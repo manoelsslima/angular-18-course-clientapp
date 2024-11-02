@@ -1,4 +1,5 @@
-{{ user }}
-<button (click)="remover()">
+{{ userService.userList[userIndex] }}
+
+<button (click)="userService.removeUser(userIndex)">
   Delete
 </button>

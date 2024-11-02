@@ -33,4 +33,8 @@ export class UserService {
     'Merridie McPartling',
     'Nanete Kitlee',
   ];
+
+  removeUser(index: number): void {
+    this.userList.splice(index, 1);
+}
 }

@@ -41,7 +41,7 @@ export class UsersComponent {
       public userService: UserService
     ) {}
 
-    removeUser(index: number): void {
-        this.userService.userList.splice(index, 1);
-    }
+    // removeUser(index: number): void {
+    //     this.userService.userList.splice(index, 1);
+    // }
 }
