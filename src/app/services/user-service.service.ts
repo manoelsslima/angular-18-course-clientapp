@@ -5,6 +5,10 @@ import { Injectable } from '@angular/core';
 })
 // estamos dizendo que essa classe poderá ser importada em outros arquivos
 export class UserService {
+
+  editingUser: string = "";
+  editingUserIndex: number = -1;
+
   userList = [
     'Tucker Anselm',
     'Elmira Keddy',
@@ -36,5 +40,9 @@ export class UserService {
 
   removeUser(index: number): void {
     this.userList.splice(index, 1);
-}
+  }
+
+  editUser(fullName: string, index: number): void {
+    this.userList[index] = fullName;
+  }
 }
