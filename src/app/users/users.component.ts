@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { User } from '../models/User.model';
 
 @Component({
   selector: 'app-users',
@@ -45,8 +46,11 @@ export class UsersComponent implements OnInit {
     ngOnInit(): void {
         this.userService.getUsers().subscribe({
             // successful request
-            next: (res: any) => {
-                console.log(res);
+            next: (res: User[]) => {
+                // res.forEach((row: User) => {
+                //     console.log(row.fullName  + " " + row.city);
+                // })
+                this.userService.userList = res;
             },
             // error on request
             error: (err: HttpErrorResponse) => {

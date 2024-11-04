@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { UserService } from '../../services/user-service.service';
 import { Subscription } from 'rxjs';
+import { User } from '../../models/User.model';
 
 @Component({
   selector: 'app-user-single',
@@ -13,7 +14,16 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     userIndex: number = -1;
 
     editMode: boolean = false;
-    userForEdit: string = "";
+    userForEdit: User = {
+      userId: 0,
+      username: '',
+      fullName: '',
+      city: '',
+      gender: '',
+      favoriteColor: '',
+      favoriteAnimal: ''
+    };
+
     textColor: any = {
         color: "white"
     }
@@ -37,7 +47,7 @@ export class UserSingleComponent implements OnInit, OnDestroy {
         )
     }
 
-    toggleEdit(editMode: boolean, user: string = "") {
+    toggleEdit(editMode: boolean, user: User) {
       this.editMode = editMode;
       this.userForEdit = user;
     }

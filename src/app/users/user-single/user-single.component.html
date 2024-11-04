@@ -1,19 +1,31 @@
 <div *ngIf="!editMode" class="user-single-grid user-page-border" [ngStyle]="textColor">
-    {{ userService.userList[userIndex] }}
+    Full Name: {{ userService.userList[userIndex].fullName }}
+    <br />
+    Username: {{ userService.userList[userIndex].username }}
+    <br />
+    City: {{ userService.userList[userIndex].city }}
+    <br />
+    Gender: {{ userService.userList[userIndex].gender }}
+    <br />
+    Favorite Color: {{ userService.userList[userIndex].favoriteColor }}
+    <br />
+    Favorite Animal: {{ userService.userList[userIndex].favoriteAnimal }}
+    <br />
 
-    <button (click)="userService.removeUser(userIndex)">
+
+    <!-- <button (click)="userService.removeUser(userIndex)">
         Delete
-    </button>
+    </button> -->
     <button (click)="toggleEdit(true, this.userService.userList[this.userIndex])">
         Edit
     </button>
 </div>
 <div *ngIf="editMode" class="user-single-grid user-page-border" [ngStyle]="textColor">
-    <input [(ngModel)]="userForEdit" />
-    <button (click)="toggleEdit(false)">
+    <!-- <input [(ngModel)]="userForEdit" /> -->
+    <!-- <button (click)="toggleEdit(false)">
         Cancel
-    </button>
-    <button (click)="submitEdit()">
+    </button> -->
+    <!-- <button (click)="submitEdit()">
         Save
-    </button>
+    </button> -->
 </div>
