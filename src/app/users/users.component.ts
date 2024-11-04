@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/User.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
+
+    usersHaveChangedSubscription: Subscription = new Subscription();
 
     // userList = [
     //     "Tucker Anselm",
@@ -44,6 +47,17 @@ export class UsersComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.getUsers();
+        this.usersHaveChangedSubscription = this.userService.usersHaveChanged.subscribe(() => {
+            this.getUsers();
+        });
+    }
+
+    // removeUser(index: number): void {
+    //     this.userService.userList.splice(index, 1);
+    // }
+
+    getUsers() {
         this.userService.getUsers().subscribe({
             // successful request
             next: (res: User[]) => {
@@ -59,7 +73,7 @@ export class UsersComponent implements OnInit {
         })
     }
 
-    // removeUser(index: number): void {
-    //     this.userService.userList.splice(index, 1);
-    // }
+    ngOnDestroy(): void {
+        this.usersHaveChangedSubscription.unsubscribe();
+    }
 }

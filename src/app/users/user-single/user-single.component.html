@@ -1,31 +1,44 @@
 <div *ngIf="!editMode" class="user-single-grid user-page-border" [ngStyle]="textColor">
-    Full Name: {{ userService.userList[userIndex].fullName }}
-    <br />
-    Username: {{ userService.userList[userIndex].username }}
-    <br />
-    City: {{ userService.userList[userIndex].city }}
-    <br />
-    Gender: {{ userService.userList[userIndex].gender }}
-    <br />
-    Favorite Color: {{ userService.userList[userIndex].favoriteColor }}
-    <br />
-    Favorite Animal: {{ userService.userList[userIndex].favoriteAnimal }}
-    <br />
-
-
+    <div>
+        Full Name: {{ userService.userList[userIndex].fullName }}
+        <br />
+        Username: {{ userService.userList[userIndex].username }}
+        <br />
+        City: {{ userService.userList[userIndex].city }}
+        <br />
+        Gender: {{ userService.userList[userIndex].gender }}
+        <br />
+        Favorite Color: {{ userService.userList[userIndex].favoriteColor }}
+        <br />
+        Favorite Animal: {{ userService.userList[userIndex].favoriteAnimal }}
+        <br />
+    </div>
     <!-- <button (click)="userService.removeUser(userIndex)">
         Delete
     </button> -->
-    <!-- <button (click)="toggleEdit(true, this.userService.userList[this.userIndex])">
+    <button (click)="toggleEdit(true, this.userService.userList[this.userIndex])">
         Edit
-    </button> -->
+    </button>
 </div>
 <div *ngIf="editMode" class="user-single-grid user-page-border" [ngStyle]="textColor">
-    <!-- <input [(ngModel)]="userForEdit" /> -->
-    <!-- <button (click)="toggleEdit(false)">
+    <div>
+        Full Name: <input [(ngModel)]="userForEdit.fullName" />
+        <br />
+        Username: <input [(ngModel)]="userForEdit.username" />
+        <br />
+        City: <input [(ngModel)]="userForEdit.city" />
+        <br />
+        Gender: <input [(ngModel)]="userForEdit.gender" />
+        <br />
+        Favorite Color: <input [(ngModel)]="userForEdit.favoriteColor" />
+        <br />
+        Favorite Animal: <input [(ngModel)]="userForEdit.favoriteAnimal" />
+        <br />
+    </div>
+    <button (click)="toggleEdit(false)">
         Cancel
-    </button> -->
-    <!-- <button (click)="submitEdit()">
+    </button>
+    <button (click)="submitEdit()">
         Save
-    </button> -->
+    </button>
 </div>

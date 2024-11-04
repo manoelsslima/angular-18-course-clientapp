@@ -14,15 +14,7 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     userIndex: number = -1;
 
     editMode: boolean = false;
-    userForEdit: User = {
-      userId: 0,
-      username: '',
-      fullName: '',
-      city: '',
-      gender: '',
-      favoriteColor: '',
-      favoriteAnimal: ''
-    };
+    userForEdit: User;
 
     textColor: any = {
         color: "white"
@@ -36,10 +28,14 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     // deleteUser: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(
-      public userService: UserService
-    ) {}
+        public userService: UserService
+    ) {
+        this.userForEdit = {...this.userService.emptyUser}
+    }
 
     ngOnInit(): void {
+        this.userForEdit = {...this.userService.emptyUser};
+
         this.colorHasChangedSubscription = this.userService.colorHasChanged.subscribe(
             (newColor) => {
               this.textColor.color = newColor
@@ -47,9 +43,9 @@ export class UserSingleComponent implements OnInit, OnDestroy {
         )
     }
 
-    toggleEdit(editMode: boolean, user: User) {
+    toggleEdit(editMode: boolean, user: User = {...this.userService.emptyUser}) {
       this.editMode = editMode;
-      this.userForEdit = user;
+      this.userForEdit = {...user}; // cloning user
     }
 
     submitEdit() {
