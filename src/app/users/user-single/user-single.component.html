@@ -13,9 +13,9 @@
         Favorite Animal: {{ userService.userList[userIndex].favoriteAnimal }}
         <br />
     </div>
-    <!-- <button (click)="userService.removeUser(userIndex)">
+    <button (click)="userService.removeUser(userService.userList[userIndex].userId)">
         Delete
-    </button> -->
+    </button>
     <button (click)="toggleEdit(true, this.userService.userList[this.userIndex])">
         Edit
     </button>
