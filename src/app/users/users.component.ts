@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
 
     // userList = [
     //     "Tucker Anselm",
@@ -40,6 +41,19 @@ export class UsersComponent {
     constructor(
       public userService: UserService
     ) {}
+
+    ngOnInit(): void {
+        this.userService.getUsers().subscribe({
+            // successful request
+            next: (res: any) => {
+                console.log(res);
+            },
+            // error on request
+            error: (err: HttpErrorResponse) => {
+                console.log(err);
+            }
+        })
+    }
 
     // removeUser(index: number): void {
     //     this.userService.userList.splice(index, 1);

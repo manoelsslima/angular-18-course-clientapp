@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserSingleComponent } from './users/user-single/user-single.component';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,10 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+//    HttpClientModule
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

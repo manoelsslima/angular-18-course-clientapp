@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -40,6 +41,14 @@ export class UserService {
     'Merridie McPartling',
     'Nanete Kitlee',
   ];
+
+  constructor(
+    private http: HttpClient
+  ) {}
+
+  getUsers() {
+    return this.http.get(`http://localhost:3000/user/users`)
+  }
 
   removeUser(index: number): void {
     this.userList.splice(index, 1);
