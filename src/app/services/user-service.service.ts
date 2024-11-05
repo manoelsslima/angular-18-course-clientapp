@@ -94,6 +94,7 @@ export class UserService {
   }
 
   putUser(userForEdit: User) {
+    console.log(userForEdit);
     return this.http.put("http://localhost:3000/user/editUser", userForEdit)
   }
 
