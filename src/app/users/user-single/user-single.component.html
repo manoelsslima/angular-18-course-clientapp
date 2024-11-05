@@ -1,4 +1,4 @@
-<div *ngIf="!editMode" class="user-page-border" [ngStyle]="textColor">
+<div *ngIf="!editMode && !addMode" class="user-page-border" [ngStyle]="textColor">
     <div class="grid50">
         <div class="field-space">
             <label class="bold-text">
@@ -61,7 +61,7 @@
         </div>
     </div>
 </div>
-<form *ngIf="editMode" class="user-page-border" [ngStyle]="textColor" (ngSubmit)="submitEdit()">
+<form *ngIf="editMode || addMode" class="user-page-border" [ngStyle]="textColor" (ngSubmit)="submitEdit()">
     <div class="grid50">
         <div class="field-space">
             <label class="bold-text">

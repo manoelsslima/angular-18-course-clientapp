@@ -1,4 +1,10 @@
 <div class="page-width">
+    <button (click)="addNewUser()">
+      Add New User
+    </button>
+    <div *ngIf="addingNewUser">
+      <app-user-single [addMode]="true"></app-user-single>
+    </div>
     <div *ngFor="let usuario of userService.userList; let userIndex = index">
         <app-user-single [userIndex]="userIndex"></app-user-single>
     </div>

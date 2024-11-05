@@ -10,7 +10,7 @@ import { User } from '../models/User.model';
 export class UserService {
 
   colorHasChanged: Subject<string> = new Subject<string>();
-  usersHaveChanged: Subject<void> = new Subject<void>();
+  usersHaveChanged: Subject<boolean> = new Subject<boolean>();
 
   editingUser: string = "";
   editingUserIndex: number = -1;
@@ -70,7 +70,7 @@ export class UserService {
       this.deleteUser(userId).subscribe({
         next: () => {
           alert("The delete was successful!");
-          this.usersHaveChanged.next();
+          this.usersHaveChanged.next(false);
         },
         error: (err) => {
           alert("The user delete failed! Please try again later.")
@@ -79,12 +79,24 @@ export class UserService {
     }
   }
 
-  editUser(user: User, index: number): void {
-    // this.userList[index] = user;
+  addUser(user: User): void {
+    this.postUser(user).subscribe({
+      next: () => {
+        alert("Adding a user was successful!");
+        this.usersHaveChanged.next(false);
+      },
+      error: (err) => {
+        console.log(err);
+        alert("Adding the user failed! Please try again later.")
+      }
+    })
+  }
+
+  editUser(user: User): void {
     this.putUser(user).subscribe({
       next: () => {
         alert("The edit was successful!");
-        this.usersHaveChanged.next();
+        this.usersHaveChanged.next(false);
       },
       error: (err) => {
         console.log(err);
@@ -93,12 +105,17 @@ export class UserService {
     })
   }
 
+  postUser(userForAdd: User) {
+    console.log(userForAdd);
+    return this.http.post("http://localhost:3000/user/addUser", userForAdd);
+  }
+
   putUser(userForEdit: User) {
     console.log(userForEdit);
-    return this.http.put("http://localhost:3000/user/editUser", userForEdit)
+    return this.http.put("http://localhost:3000/user/editUser", userForEdit);
   }
 
   deleteUser(userId: number) {
-    return this.http.delete("http://localhost:3000/user/deleteUser/" + userId)
+    return this.http.delete("http://localhost:3000/user/deleteUser/" + userId);
   }
 }

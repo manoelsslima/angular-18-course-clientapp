@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { UserService } from '../../services/user-service.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/User.model';
@@ -10,8 +10,8 @@ import { User } from '../../models/User.model';
 })
 export class UserSingleComponent implements OnInit, OnDestroy {
     // @Input() user: string = "";
-    @Input()
-    userIndex: number = -1;
+    @Input() userIndex: number = -1;
+    @Input() addMode: boolean = false;
 
     editMode: boolean = false;
     userForEdit: User;
@@ -46,13 +46,20 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     toggleEdit(editMode: boolean, user: User = {...this.userService.emptyUser}) {
       this.editMode = editMode;
       this.userForEdit = {...user}; // cloning user
+      if (!editMode) {
+        this.userService.usersHaveChanged.next(true);
+      }
     }
 
     submitEdit() {
-      // desnecessário, pois é setado para false quando o Angular detecta a mudança e
-      // recarrega o componente
-      this.editMode = false;
-      this.userService.editUser(this.userForEdit, this.userIndex);
+      if (this.addMode) {
+        this.userService.addUser(this.userForEdit);
+      } else {
+        // desnecessário, pois é setado para false quando o Angular detecta a mudança e
+        // recarrega o componente
+        this.editMode = false;
+        this.userService.editUser(this.userForEdit);
+      }
     }
 
     // remover(): void {
