@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/User.model';
-import { Subscription } from 'rxjs';
+import { Observer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -13,6 +13,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     usersHaveChangedSubscription: Subscription = new Subscription();
     addingNewUser: boolean = false;
+    userSearch: string = "";
 
     // userList = [
     //     "Tucker Anselm",
@@ -67,19 +68,24 @@ export class UsersComponent implements OnInit, OnDestroy {
     // }
 
     getUsers() {
-        this.userService.getUsers().subscribe({
-            // successful request
-            next: (res: User[]) => {
-                // res.forEach((row: User) => {
-                //     console.log(row.fullName  + " " + row.city);
-                // })
-                this.userService.userList = res;
-            },
-            // error on request
-            error: (err: HttpErrorResponse) => {
-                console.log(err);
-            }
-        })
+      let responseObject: Partial<Observer<User[]>> = {
+          // successful request
+          next: (res: User[]) => {
+              // res.forEach((row: User) => {
+              //     console.log(row.fullName  + " " + row.city);
+              // })
+              this.userService.userList = res;
+          },
+          // error on request
+          error: (err: HttpErrorResponse) => {
+              console.log(err);
+          }
+      }
+        if (!this.userSearch) {
+          this.userService.getUsers().subscribe(responseObject);
+        } else {
+          this.userService.getUsers(this.userSearch).subscribe(responseObject);
+        }
     }
 
     ngOnDestroy(): void {

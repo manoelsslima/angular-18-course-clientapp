@@ -60,8 +60,12 @@ export class UserService {
     private http: HttpClient
   ) {}
 
-  getUsers() {
-    return this.http.get<User[]>("http://localhost:3000/user/users")
+  getUsers(searchText: string = "") {
+    if (searchText === "") {
+      return this.http.get<User[]>("http://localhost:3000/user/users")
+    } else {
+      return this.http.get<User[]>("http://localhost:3000/user/userSearch/" + searchText);
+    }
   }
 
   removeUser(userId: number): void {

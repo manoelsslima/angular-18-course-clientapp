@@ -1,7 +1,15 @@
 <div class="page-width">
-    <button (click)="addNewUser()">
-      Add New User
-    </button>
+    <div class="field-space">
+      <button (click)="addNewUser()">
+        Add New User
+      </button>
+    </div>
+    <div class="field-space">
+      <input type="text" [(ngModel)]="userSearch">
+      <button (click)="getUsers()">
+        Update List
+      </button>
+    </div>
     <div *ngIf="addingNewUser">
       <app-user-single [addMode]="true"></app-user-single>
     </div>
