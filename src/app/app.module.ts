@@ -7,19 +7,24 @@ import { UsersComponent } from './users/users.component';
 import { UserSingleComponent } from './users/user-single/user-single.component';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    UserSingleComponent
+    UserSingleComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
 //    HttpClientModule
+    AppRoutingModule
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
