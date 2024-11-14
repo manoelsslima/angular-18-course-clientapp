@@ -68,6 +68,10 @@ export class UserService {
     }
   }
 
+  getSingleUser(userId: number) {
+    return this.http.get<User>("http://localhost:3000/user/userSingle/" + userId);
+  }
+
   removeUser(userId: number): void {
     // this.userList.splice(index, 1);
     if(confirm("Are you sure you want to delete this user?")) {

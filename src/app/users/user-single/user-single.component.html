@@ -1,11 +1,16 @@
-<div *ngIf="!editMode && !addMode" class="user-page-border" [ngStyle]="textColor">
+<div *ngIf="!editMode && !addMode && !displayUser" class="user-page-border" [ngStyle]="textColor">
+  <h4>
+    No user found!
+  </h4>
+</div>
+<div *ngIf="!editMode && !addMode && displayUser" class="user-page-border" [ngStyle]="textColor">
     <div class="grid50">
         <div class="field-space">
             <label class="bold-text">
                 Full Name:
             </label>
             <div>
-                {{ userService.userList[userIndex].fullName }}
+                {{ userForDisplay.fullName }}
             </div>
         </div>
         <div class="field-space">
@@ -13,7 +18,7 @@
                 Username
             </label>
             <div>
-                {{ userService.userList[userIndex].username }}
+                {{ userForDisplay.username }}
             </div>
         </div>
         <div class="field-space">
@@ -21,7 +26,7 @@
                 City:
             </label>
             <div>
-                {{ userService.userList[userIndex].city }}
+                {{ userForDisplay.city }}
             </div>
         </div>
         <div class="field-space">
@@ -29,7 +34,7 @@
                 Gender:
             </label>
             <div>
-                {{ userService.userList[userIndex].gender }}
+                {{ userForDisplay.gender }}
             </div>
         </div>
         <div class="field-space">
@@ -37,7 +42,7 @@
                 Favorite Color:
             </label>
             <div>
-                {{ userService.userList[userIndex].favoriteColor }}
+                {{ userForDisplay.favoriteColor }}
             </div>
         </div>
         <div class="field-space">
@@ -45,17 +50,17 @@
                 Favorite Animal:
             </label>
             <div>
-                {{ userService.userList[userIndex].favoriteAnimal }}
+                {{ userForDisplay.favoriteAnimal }}
             </div>
         </div>
     </div>
     <div class="grid50">
         <div></div>
         <div class="grid50">
-            <button class="field-space" (click)="userService.removeUser(userService.userList[userIndex].userId)">
+            <button class="field-space" (click)="userService.removeUser(userForDisplay.userId)">
                 Delete
             </button>
-            <button class="field-space" (click)="toggleEdit(true, this.userService.userList[this.userIndex])">
+            <button class="field-space" (click)="toggleEdit(true, userForDisplay)">
                 Edit
             </button>
         </div>

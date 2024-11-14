@@ -2,6 +2,7 @@ import { Component, EventEmitter, input, Input, OnDestroy, OnInit, Output } from
 import { UserService } from '../../services/user-service.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/User.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-single',
@@ -12,14 +13,18 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     // @Input() user: string = "";
     @Input() userIndex: number = -1;
     @Input() addMode: boolean = false;
+    userId: number = -1;
 
     editMode: boolean = false;
+    displayUser: boolean = false;
     userForEdit: User;
+    userForDisplay: User;
 
     textColor: any = {
         color: "black"
     }
     colorHasChangedSubscription: Subscription = new Subscription();
+    usersHaveChangedSubscription: Subscription = new Subscription();
 
     // um output é exposto como um evento e será acessado por (deleteUser)=METODO_XPTO_DO_COMPONENTE_PAI($event)
     // esse $event é o evento que é emitido pelo métood emit()
@@ -28,9 +33,11 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     // deleteUser: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(
-        public userService: UserService
+        public userService: UserService,
+        private route: ActivatedRoute
     ) {
         this.userForEdit = {...this.userService.emptyUser}
+        this.userForDisplay = {...this.userService.emptyUser};
     }
 
     ngOnInit(): void {
@@ -41,6 +48,45 @@ export class UserSingleComponent implements OnInit, OnDestroy {
               this.textColor.color = newColor
             }
         )
+        this.subscribeParams();
+        this.setUserForDisplay();
+    }
+
+    setUserForDisplay() {
+      if (this.userIndex !== -1) {
+        this.userForDisplay = this.userService.userList[this.userIndex];
+        this.displayUser = true;
+      }
+    }
+
+    subscribeParams() {
+      this.route.params.subscribe(params => {
+        console.log(params["userId"]);
+        if (params["userId"]) {
+          // + converts userId from string to number
+          this.userId = +params["userId"];
+          this.getUserById();
+          this.usersHaveChangedSubscription = this.userService.usersHaveChanged.subscribe(() => {
+            this.getUserById();
+          })
+        }
+      });
+    }
+
+    getUserById() {
+      if (this.userId > 0) {
+        this.userService.getSingleUser(this.userId).subscribe({
+          next: (res) => {
+            if (res) {
+              this.userForDisplay = res;
+              this.displayUser = true;
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      }
     }
 
     toggleEdit(editMode: boolean, user: User = {...this.userService.emptyUser}) {
@@ -68,5 +114,6 @@ export class UserSingleComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.colorHasChangedSubscription.unsubscribe();
+        this.usersHaveChangedSubscription.unsubscribe();
     }
 }

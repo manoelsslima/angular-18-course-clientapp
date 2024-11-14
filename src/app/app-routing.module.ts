@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./auth/login/login.component";
 import { UsersComponent } from "./users/users.component";
+import { UserSingleComponent } from "./users/user-single/user-single.component";
 
 // rotas são avaliadas de cima para baixo
 // se houver mais de uma combinação, o Angular seleciona a primeira que encontrar
@@ -12,6 +13,7 @@ const rotas: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'user/:userId', component: UserSingleComponent },
   { path: '**', // rota default (quando não dá match com as outras rotas)
     redirectTo: "login" // quando não coincidir a rota, redireciona pro login
   },

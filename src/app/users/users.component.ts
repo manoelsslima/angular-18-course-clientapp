@@ -81,11 +81,11 @@ export class UsersComponent implements OnInit, OnDestroy {
               console.log(err);
           }
       }
-        if (!this.userSearch) {
-          this.userService.getUsers().subscribe(responseObject);
-        } else {
-          this.userService.getUsers(this.userSearch).subscribe(responseObject);
-        }
+      if (!this.userSearch) {
+        this.userService.getUsers().subscribe(responseObject);
+      } else {
+        this.userService.getUsers(this.userSearch).subscribe(responseObject);
+      }
     }
 
     ngOnDestroy(): void {
