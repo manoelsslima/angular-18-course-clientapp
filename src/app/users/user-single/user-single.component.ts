@@ -2,7 +2,7 @@ import { Component, EventEmitter, input, Input, OnDestroy, OnInit, Output } from
 import { UserService } from '../../services/user-service.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/User.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-single',
@@ -19,6 +19,7 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     displayUser: boolean = false;
     userForEdit: User;
     userForDisplay: User;
+    isSingleUser: boolean = false;
 
     textColor: any = {
         color: "black"
@@ -34,7 +35,8 @@ export class UserSingleComponent implements OnInit, OnDestroy {
 
     constructor(
         public userService: UserService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.userForEdit = {...this.userService.emptyUser}
         this.userForDisplay = {...this.userService.emptyUser};
@@ -50,6 +52,15 @@ export class UserSingleComponent implements OnInit, OnDestroy {
         )
         this.subscribeParams();
         this.setUserForDisplay();
+    }
+
+    goToSingleUser(userId: number) {
+      this.router.navigate(["user", userId]);
+      //this.router.navigate(["user/" + userId]);
+    }
+
+    goToUserList() {
+      this.router.navigate(["users"]);
     }
 
     setUserForDisplay() {
@@ -69,6 +80,7 @@ export class UserSingleComponent implements OnInit, OnDestroy {
           this.usersHaveChangedSubscription = this.userService.usersHaveChanged.subscribe(() => {
             this.getUserById();
           })
+          this.isSingleUser = true;
         }
       });
     }
