@@ -22,7 +22,9 @@ const rotas: Routes = [
 @NgModule({
   // indica que a rota será no root da aplicação. Ou seja, as rotas desse
   // arquivo serão avaliadas pelo verificador de rotas do Angular
-  imports: [RouterModule.forRoot(rotas)],
+  imports: [RouterModule.forRoot(rotas, {
+    scrollPositionRestoration: "disabled"
+  })],
   // após adicionarmos nossas rotas no .forRoot(), no imports, exportamos
   // o RouterModule
   exports: [RouterModule]
