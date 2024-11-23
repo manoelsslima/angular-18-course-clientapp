@@ -12,8 +12,14 @@ const rotas: Routes = [
   // se retirar o pathMatch, entra em loop, sempre mandando para login
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'user/:userId', component: UserSingleComponent },
+  { path: 'user', children: [
+    // patchMatch faz o Angular ignorar o path /user se houver algo após ele.
+    // se não tiver, por exemplo, a rota /user sobreporia a /user/:userId
+    // porque o Angular iria entender que /user é uma rota válida
+    // e navegaria para /user
+    { path: '', component: UsersComponent, pathMatch: "full" }, // herda o /user da rota-mãe
+    { path: ':userId', component: UserSingleComponent }, // herda o user/:userId da rota-mãe
+  ] },
   { path: '**', // rota default (quando não dá match com as outras rotas)
     redirectTo: "login" // quando não coincidir a rota, redireciona pro login
   },

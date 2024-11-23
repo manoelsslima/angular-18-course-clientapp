@@ -60,7 +60,7 @@ export class UserSingleComponent implements OnInit, OnDestroy {
     }
 
     goToUserList() {
-      this.router.navigate(["users"]);
+      this.router.navigate(["user"]);
     }
 
     setUserForDisplay() {
