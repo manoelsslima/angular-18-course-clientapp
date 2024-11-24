@@ -16,7 +16,14 @@
     <!-- <div *ngIf="addingNewUser">
       <app-user-single [addMode]="true"></app-user-single>
     </div> -->
-    <div *ngFor="let usuario of userService.userList; let userIndex = index">
+    @for (usuario of userService.userList; track usuario.username; let userIndex = $index) {
+        <app-user-single [userIndex]="$index"></app-user-single>
+    } @empty {
+        <div>
+            No users found!
+        </div>
+    }
+    <!-- <div *ngFor="let usuario of userService.userList; let userIndex = index">
         <app-user-single [userIndex]="userIndex"></app-user-single>
-    </div>
+    </div> -->
 </div>
